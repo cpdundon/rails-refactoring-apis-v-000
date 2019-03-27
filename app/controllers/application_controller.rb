@@ -1,4 +1,7 @@
 class ApplicationController < ActionController::Base
+  #attr_reader :git_service
+	@@git_services = nil
+
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
@@ -11,6 +14,7 @@ class ApplicationController < ActionController::Base
     end
 
     def logged_in?
-      !!session[:token]
+			@@git_services = GithubService.new unless @@git_services
+      @@git_services.logged_in?
     end
 end
